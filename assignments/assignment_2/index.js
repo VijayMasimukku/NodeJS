@@ -1,11 +1,21 @@
-const fs= require("fs");
-const http=require("http");
-const server=http.createServer((req,res)=>{
-    fs.readFile("D:\\NodeJs\\NodeJS\\assignments\\assignment_2\\index.html", {encoding:"utf-8"},(err,data)=>{
-        res.end(data)
+const fs=require("fs");
+const http=require("http")
+const path=require("path")
+
+
+fs.writeFile("index.html","<h1>Hello World</h1>", err=>{console.log(err)})
+
+
+http.createServer((req,res)=>{
+
+    fs.readFile(path.join(__dirname,"ind.html"),{encoding:"utf-8"},(err,data)=>{
+        if(err){
+            console.log(err)
+        }
+        else{
+            res.write(data)
+            res.end(data)
+        }
     })
 
-})
-server.listen(3000, ()=>{
-    console.log("server is listing")
-});
+}).listen(3000)
