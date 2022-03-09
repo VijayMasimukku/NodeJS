@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>Home Page</title>
+
+
+    <style>
+        body {
+            width: 100%;
+            height: 100%;
+            background-color: black;
+        }
+        a {
+            color: azure;
+        }
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            background-color: rgb(235, 240, 231);
+            width: auto;
+        }
+        .promoted {
+            color: goldenrod;
+        }
+        .promoted-btn{
+            background-color: rgb(20, 240,35);
+        }
+        .delete-btn{
+            background-color: red;
+        }
+        .default{
+            color: rgb(76, 0, 255);
+        }
+    </style>
+</head>
+
+<body>
+    <table style="width: 100%;">
+        <tr>
+            <th><strong>Name</strong></th>
+            <th><strong>Email</strong></th>
+            <th><strong>Age</strong></th>
+            <th><strong>City</strong></th>
+            <th><strong>Promote</strong></th>
+            <th><strong>Delete</strong></th>
+
+        </tr>
+        <%users.forEach((user)=>{%> <% if(user.isPromoted===true) { %>
+            <tr class="promoted">
+                <td>
+                    <%=user.name%>
+                </td>
+                <td>
+                    <%=user.email%>
+                </td>
+                <td>
+                    <%=user.age%>
+                </td>
+                <td>
+                    <%=user.city%>
+                </td>
+                <td>
+                    <form method="POST" action="/user/<%= user._id %>?_method=PUT">
+                        <button  class="promoted-btn" id="edit-<%= user.name %>" type="submit">Promoted</button>
+                    </form>
+                </td>
+                <td>
+                    <form method="POST" action="/user/<%= user._id %>?_method=DELETE">
+                        <button class="delete-btn" id="delete-<%= user.name %>">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        <%} 
+        else{%>
+            <tr class="default">
+                <td>
+                    <%=user.name%>
+                </td>
+                <td>
+                    <%=user.email%>
+                </td>
+                <td>
+                    <%=user.age%>
+                </td>
+                <td>
+                    <%=user.city%>
+                </td>
+                <td>
+                    <form method="POST" action="/user/<%= user._id %>?_method=PUT">
+                        <button class="promoted-btn"id="edit-<%= user.name %>" type="submit">Promote</button>
+                    </form>
+                </td>
+                <td>
+                    <form method="POST" action="/user/<%= user._id %>?_method=DELETE">
+                        <button class="delete-btn" id="delete-<%= user.name %>">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        <%}%>
+            
+            <%})%>
+    </table>
+    <a href="./form">Add New user</a>
+</body>
+
+</html>
